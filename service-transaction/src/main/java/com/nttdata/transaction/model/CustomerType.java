@@ -1,4 +1,4 @@
-package com.nttdata.customer.model;
+package com.nttdata.transaction.model;
 
 public enum CustomerType {
 

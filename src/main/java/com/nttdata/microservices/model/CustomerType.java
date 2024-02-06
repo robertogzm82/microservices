@@ -1,4 +1,4 @@
-package com.nttdata.customer.model;
+package com.nttdata.microservices.model;
 
 public enum CustomerType {
 

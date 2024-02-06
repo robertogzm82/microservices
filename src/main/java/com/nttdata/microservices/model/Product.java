@@ -1,6 +1,9 @@
-package com.nttdata.customer.model;
+package com.nttdata.microservices.model;
 
 import java.util.List;
+
+import com.nttdata.microservices.model.ProductType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,8 +23,5 @@ public class Product {
 	private List<String> titulares;
 	 
 	private int limite;
-	
-	//@DBRef
-	//private List<Transaction> transactions;
-	
+
 }

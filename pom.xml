@@ -75,5 +75,6 @@
 	<modules>
 		<module>service-customer</module>
 		<module>service-product</module>
+		<module>service-transaction</module>
 	</modules>
 </project>

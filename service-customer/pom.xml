@@ -7,7 +7,7 @@
   </parent>
   <artifactId>service-customer</artifactId>
   <name>customer-service</name>
-  <description>Cutomer Module Microservice</description>
+  <description>Customer Module Microservice</description>
   
 
   
@@ -33,4 +33,11 @@
 	</build>
 	-->
 	
+  <dependencies>
+  	<dependency>
+  		<groupId>com.nttdata</groupId>
+  		<artifactId>microservices</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

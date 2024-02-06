@@ -5,15 +5,17 @@
     <artifactId>microservices</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.nttdata.product</groupId>
-  <artifactId>service-product</artifactId>
-  <name>Product Services</name>
-  <description>Product Microservice</description>
-  <dependencies>
+  <groupId>com.nttdata.transaction</groupId>
+  <artifactId>service-transaction</artifactId>
+  <name>service-transaction</name>
+  <description>Microservice Transaction</description>
+  
+    <dependencies>
   	<dependency>
   		<groupId>com.nttdata</groupId>
   		<artifactId>microservices</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
+  
 </project>
