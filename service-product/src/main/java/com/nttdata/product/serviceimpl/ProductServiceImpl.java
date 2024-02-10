@@ -6,11 +6,15 @@ import org.springframework.stereotype.Service;
 import com.nttdata.product.repository.ProductRepository;
 import com.nttdata.product.service.CustomerService;
 import com.nttdata.product.service.ProductService;
+import com.nttdata.product.service.TransactionService;
 import com.nttdata.product.model.Product;
 import com.nttdata.product.model.ProductType;
+import com.nttdata.product.model.Transaction;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import java.util.Date;
+
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -20,6 +24,9 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private CustomerService customerService ;
+	
+	@Autowired
+	private TransactionService transactionService ;
 
 	@Override
 	public Flux<Product> getAll() {
@@ -27,8 +34,13 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Mono<Product> save(Product product) {
-		return  productRepository.save(product);
+	public Mono<?> save(Product product) {
+		return  productRepository.save(product)
+				.flatMap( producto -> { if(producto.getMonto_inicial() > 0 )
+					                        return saveInitialAmount(product,new Integer(producto.getMonto_inicial()),new Date()); 
+					                      else
+					                    	  return Mono.just(product); }
+						);
 	}
 
 	@Override
@@ -55,6 +67,11 @@ public class ProductServiceImpl implements ProductService{
 	public Mono<Long> countByCustomerIdAndTipo(String customerId, String tipo) {
 		return productRepository.countByCustomerIdAndTipo(customerId, ProductType.valueOf(tipo));
 	}
-	
-	
+
+	@Override
+	public Mono<Transaction> saveInitialAmount(Product product, Integer monto, Date date) {
+		return transactionService.saveTransacionProduct(product, monto, date) ;
+	}
+
+
 }

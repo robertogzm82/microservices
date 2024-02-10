@@ -1,7 +1,6 @@
 package com.nttdata.transaction.model;
 
 import java.time.LocalDateTime;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -28,6 +28,14 @@ public class Transaction {
 	
 	private Integer monto;
 	
-	private LocalDateTime date;
+	private Date date;
 	
+	public Transaction(String customer_id, String product_id, String tipo_s, int monto) {
+		super();
+		this.customerId = customer_id;
+		this.productId = product_id;
+		this.tipo = TransactionType.valueOf(tipo_s);
+		this.monto = monto;
+		this.date = new Date();
+	}
 }

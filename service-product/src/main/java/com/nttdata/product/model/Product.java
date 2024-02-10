@@ -29,6 +29,8 @@ public class Product {
 	@Nonnull
 	private int limite;
 	
+	private int monto_inicial;
+	
 	//@DBRef
 	//private List<Transaction> transactions;
 	

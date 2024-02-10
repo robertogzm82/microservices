@@ -24,9 +24,6 @@ public class CustomerController {
 
 	  @Autowired
 	  private CustomerService customerService;
-
-	  @Autowired
-	  private ProductService productService;
 	  
 	  @PostMapping(value="/customer")
 	  public Mono<Customer> register(@RequestBody Customer customer) {
@@ -48,5 +45,14 @@ public class CustomerController {
 	    return customerService.existsById(id) ;
 	  }
 	 
+	  @GetMapping(value="/customer/isVIP/{id}")
+	  public Mono<Boolean> isCustomerVIP (@PathVariable String id){
+	  	return customerService.isCustomerVIP(id);
+	  }
+	  
+	  @GetMapping(value="/customer/isPYME/{id}")
+	  public Mono<Boolean> isCustomerPYME (@PathVariable String id){
+	  	return customerService.isCustomerPYME(id);
+	  }
 	  
 }

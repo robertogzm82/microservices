@@ -12,6 +12,8 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface ProductRepository extends ReactiveMongoRepository <Product, String>{
 
+	Mono<Product> save(Product product);
+	
 	Flux<Product> findByCustomerId (String customerId);
 	
 	Mono<Long> countByCustomerId(String customerId);

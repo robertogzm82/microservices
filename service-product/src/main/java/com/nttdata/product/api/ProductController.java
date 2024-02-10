@@ -35,7 +35,7 @@ public class ProductController {
 		return isvalid(product)
 		.flatMap( p -> { if(p) {
 											log.info("terminó ejecución funcion isvalid");
-											return productService.save(product);
+											return productService.save(product) ;
 										}	else
 											return Mono.error(new RuntimeException("El producto no es válido"));
 									 }  );
@@ -65,7 +65,7 @@ public class ProductController {
 																																		  else
 																																		  	return false; 
 																																			}	 )
-		.doOnNext( p -> log.info(" validación suma final" + p));
+		.doOnNext( p -> log.info(" validación suma cant prod_ahorro + cant prod_plazofijo = " + p));
 	}
 
 	private  Mono<Boolean> isvalidCantProdAhorro(Product product) {
@@ -95,6 +95,12 @@ public class ProductController {
 	 	return productService.getAll();
 	}
 	
+	@GetMapping(value = "/product/{id}")
+	public Mono<Product> getbyId(@PathVariable(value="id") String productid) {
+	 	return productService.findById(productid);
+	}
+	
+	
 	@GetMapping(value = "/product/customer/{id}")
 	public Flux<Product> findByCustomerId(@PathVariable String id) {
 	 	return productService.findByCustomerId(id);
@@ -107,9 +113,14 @@ public class ProductController {
 	
 	@GetMapping(value = "/product/count/filtered")
 	public Mono<Long> countByCustomerIdAndTipo( @RequestParam("customerid") String customerid
-			                                       ,@RequestParam("productid") String productid ) {
-	 	return productService.countByCustomerIdAndTipo(customerid,productid);
+			                                       ,@RequestParam("tipo") String tipo ) {
+	 	return productService.countByCustomerIdAndTipo(customerid,tipo);
 	}
 	
-	
+	@GetMapping(value = "/product/transfer")
+	public Mono<String> transfer( @RequestParam("productid_ini") String productid_ini
+      ,@RequestParam("product_fin") String productid_fin
+      ,@RequestParam("monto") Integer monto ) {
+		return Mono.just("Transferencia Exitosa");
+	}
 }
