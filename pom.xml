@@ -76,5 +76,7 @@
 		<module>service-customer</module>
 		<module>service-product</module>
 		<module>service-transaction</module>
+		<module>service-banca</module>
+		<module>service-debitcard</module>
 	</modules>
 </project>

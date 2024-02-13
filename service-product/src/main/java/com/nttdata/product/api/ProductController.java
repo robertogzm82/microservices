@@ -83,7 +83,7 @@ public class ProductController {
 		Mono<Long> cant_prod_plazofijo = productService.countByCustomerIdAndTipo(product.getCustomerId(), "plazoFijo" ) ;
 		return cant_prod_cuentacorriente
 				.zipWith( cant_prod_plazofijo , (p, q) -> p + q  )
-				.flatMap( p -> { if(p==0)  
+				.flatMap( p -> { if( p <= 2)  
 					        			   return Mono.just(true); 
 				                 else 
 				                	 return Mono.just(false);
@@ -103,6 +103,7 @@ public class ProductController {
 	
 	@GetMapping(value = "/product/customer/{id}")
 	public Flux<Product> findByCustomerId(@PathVariable String id) {
+		log.info("llamado al api product , metodo customer, tipo get de consulta- customerid=" + id);
 	 	return productService.findByCustomerId(id);
 	}
 	

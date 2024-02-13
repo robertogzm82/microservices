@@ -20,7 +20,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Mono<Boolean> existsById(String id) {
-		return  webClient.get()
+		return  webClient
+				.get()
 				.uri("/product/exist/"+id)
 				.retrieve()
 				.bodyToMono(Boolean.class);
