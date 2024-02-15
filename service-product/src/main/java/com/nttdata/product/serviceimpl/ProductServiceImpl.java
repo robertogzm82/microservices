@@ -1,6 +1,7 @@
 package com.nttdata.product.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.nttdata.product.repository.ProductRepository;
@@ -29,6 +30,7 @@ public class ProductServiceImpl implements ProductService{
 	private TransactionService transactionService ;
 
 	@Override
+	@Cacheable(value = "productCache")
 	public Flux<Product> getAll() {
 		return productRepository.findAll();
 	}
@@ -44,6 +46,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	@Cacheable(value = "productCache")
 	public Mono<Product> findById(String id) {
 		return productRepository.findById(id);
 	}

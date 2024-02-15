@@ -70,9 +70,11 @@ public class ProductController {
 
 	private  Mono<Boolean> isvalidCantProdAhorro(Product product) {
 		return productService.countByCustomerIdAndTipo(product.getCustomerId(), "ahorro" )
-				.flatMap( p -> { if(p==0)  
+				.flatMap( p -> { if( p == 0 && product.getTipo().name().equals("ahorro"))  
 					        			   return Mono.just(true); 
-				                 else 
+				                 else if ( p > 0 && !product.getTipo().name().equals("ahorro") ) 
+				                	 return Mono.just(true);
+				                 else
 				                	 return Mono.just(false);
 											 } )
 				.doOnNext( p -> log.info(""+p) ) ;
@@ -83,8 +85,12 @@ public class ProductController {
 		Mono<Long> cant_prod_plazofijo = productService.countByCustomerIdAndTipo(product.getCustomerId(), "plazoFijo" ) ;
 		return cant_prod_cuentacorriente
 				.zipWith( cant_prod_plazofijo , (p, q) -> p + q  )
-				.flatMap( p -> { if( p <= 2)  
+				.flatMap( p -> { if( p == 0 && ( product.getTipo().name().equals("cuentaCorriente") || 
+						                             product.getTipo().name().equals("plazoFijo") ) )  
 					        			   return Mono.just(true); 
+				 								 else if( p == 1 &&  !product.getTipo().name().equals("cuentaCorriente") && 
+				 										!product.getTipo().name().equals("plazoFijo")  )  
+				 										return Mono.just(true); 
 				                 else 
 				                	 return Mono.just(false);
 											 } ) ;

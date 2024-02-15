@@ -8,4 +8,5 @@ import com.nttdata.customer.model.Customer;
 @Repository
 public interface CustomerRepository extends ReactiveMongoRepository <Customer, String>{
 
+
 }

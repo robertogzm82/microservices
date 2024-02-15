@@ -40,6 +40,12 @@ public class CustomerController {
 	    return customerService.findById(id) ;
 	  }
 	  
+	  @GetMapping(value="/customerNR/{id}")
+	  public Customer findById2(@PathVariable String id) {
+	    return customerService.findByIdCacheable(id) ;
+	  }
+	  
+	  
 	  @GetMapping(value="/customer/exist/{id}")
 	  public Mono<Boolean> exitsById(@PathVariable String id) {
 	    return customerService.existsById(id) ;

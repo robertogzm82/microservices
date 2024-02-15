@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.nttdata.debitcard.model.DebitCard;
 import com.nttdata.debitcard.model.Product;
 import com.nttdata.debitcard.model.Transaction;
 import com.nttdata.debitcard.service.TransactionService;
@@ -58,6 +59,14 @@ public class TransactionServiceImpl implements TransactionService {
 				.bodyToMono(Integer.class);
 	}
 
+	public Integer getSaldoNR(String productid) {
+		return  webClient.get()
+				.uri("/transaction/balance/"+productid)
+				.retrieve()
+				.bodyToMono(Integer.class)
+				.block();
+	}
+	
 	@Override
 	public Mono<Transaction> save(Transaction transaction) {
 		return webClient
@@ -66,6 +75,21 @@ public class TransactionServiceImpl implements TransactionService {
 				.body( BodyInserters.fromValue(transaction) )
 				.retrieve()
 				.bodyToMono( Transaction.class );
+	}
+
+	@Override
+	public String registrarPago(DebitCard debitCard, String mainproductid, Integer monto) {
+		return "pago registrado - falta implementacion";
+	}
+
+	@Override
+	public boolean isRetiroPossible(String debitcardId, Integer monto) {
+		return true;
+	}
+
+	@Override
+	public String findProductRetiroDebitCard(DebitCard debitCard, Integer monto) {
+		return "";
 	}
 	 
 }

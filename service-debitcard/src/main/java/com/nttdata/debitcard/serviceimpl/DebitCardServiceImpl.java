@@ -49,17 +49,9 @@ public class DebitCardServiceImpl implements DebitCardService {
 	}
 
 	@Override
-	public Mono<String> getProductsId(DebitCard debitCard, Integer monto) {
-		return Mono.just(debitCard.getMainproductid())
-				.flatMap( productid -> hasEnoughBalance(productid,monto ) )
-				.map(  b  -> { if(b) {return "Pago realizado"; }
-											else { return null; } } );
-	}
-
-	private Mono<Integer> hasEnoughBalance(String productid, Integer monto) {
-		return trasactionService.getSaldo(productid)
-				.map( i -> { if (i>=monto) return true;
-									else return false; } );
+	public Flux<String> getProductsId(DebitCard debitCard, Integer saldo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
